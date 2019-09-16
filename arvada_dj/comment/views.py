@@ -12,11 +12,13 @@ from rest_framework import permissions,  generics
 from rest_framework.response import Response
 from comment.models import Comment
 from comment.serializers import CommentSerializer, UserSerializer
+from comment.permissions import IsOwnerOrReadOnly
 
 class CommentList(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [#permissions.IsAuthenticatedOrReadOnly,
+                            IsOwnerOrReadOnly]
     
     def perform_create(self, serializer):
         # Set current user to owner of comment
@@ -25,7 +27,12 @@ class CommentList(generics.ListCreateAPIView):
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    permission_classes = [#permissions.IsAuthenticatedOrReadOnly,
+                            IsOwnerOrReadOnly]
+    
+    def perform_create(self, serializer):
+        # Set current user to owner of comment
+        serializer.save(owner=self.request.user)
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
