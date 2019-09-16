@@ -21,7 +21,7 @@ from rest_framework import routers, serializers, viewsets
 #from comment.views import UserViewSet, GroupViewSet
 import main
 import map
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 # Serializers define the API representation.
 #class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -49,10 +49,12 @@ import map
 urlpatterns = [
     path('main/', include('main.urls')),
     path('map/', include('map.urls')),
-    #path('', main.views.index),
+    path('', main.views.index),
     path('admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     #path('', include(router.urls)),
     #path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('', include('comment.urls')),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
