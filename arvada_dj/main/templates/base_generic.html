@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% block title %}<title>Arvada Stormwater Master Plan</title>{% endblock %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Add additional CSS in static file -->
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+  {% block extra_head %}    {% endblock %}
+
+</head>
+<body>
+  {% block sidebar %}
+    <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="/">Home</a>
+      <a href="/admin">Admin</a>
+      {% if user.is_authenticated %}
+        <div class="sidenav-text">
+          User: {{ user.get_username }}
+        </div>
+        <a href="{% url 'logout'%}?next={{request.path}}">Logout</a>   
+      {% else %}
+        <a href="{% url 'login'%}?next={{request.path}}">Login</a>   
+      {% endif %} 
+      {% if user.is_authenticated %}
+           You are authenticated!   
+      {% else %}
+         Log in, you're not authenticated!
+      {% endif %} 
+      </div>
+  {% endblock %}
+  <div class="header">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+  </div>
+  <div class="content">
+    {% block content %}     {% endblock %}
+  </div>
+  
+  <script>
+    function openNav() {
+      document.getElementById("mySidenav").style.width = "250px";
+    }
+
+    function closeNav() {
+      document.getElementById("mySidenav").style.width = "0";
+    }
+  </script>
+</body>
+</html>
