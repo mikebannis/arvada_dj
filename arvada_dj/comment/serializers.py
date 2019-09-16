@@ -17,8 +17,9 @@ from comment.models import Comment
 class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comment
-        fields = ['id', 'geom', 'author', 'comment_text', 'status', 
-                    'time_stamp' ]
+        owner = serializers.ReadOnlyField(source='owner.username')
+        fields = ['id', 'owner', 'geom', 'author', 'comment_text', 'status', ]
+                    #'time_stamp' ]
 
 class UserSerializer(serializers.ModelSerializer):
     comments = serializers.PrimaryKeyRelatedField(many=True, 

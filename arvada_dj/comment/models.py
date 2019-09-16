@@ -8,4 +8,4 @@ class Comment(models.Model):
     author = models.CharField(max_length=80) 
     comment_text = models.TextField()
     status = models.CharField(max_length=20) 
-    time_stamp = models.DateTimeField()
+    #time_stamp = models.DateTimeField()
