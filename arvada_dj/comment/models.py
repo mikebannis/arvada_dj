@@ -1,5 +1,6 @@
 # from django.db import models
 from django.contrib.gis.db import models
+from datetime import datetime as dt
 
 class Comment(models.Model):
     owner = models.ForeignKey('auth.User', related_name='comments', 
@@ -8,4 +9,9 @@ class Comment(models.Model):
     author = models.CharField(max_length=80) 
     comment_text = models.TextField()
     status = models.CharField(max_length=20) 
-    #time_stamp = models.DateTimeField()
+    time_stamp = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        self.author = self.owner
+        self.time_stamp = dt.now()
+        super(Comment, self).save(*args, **kwargs)

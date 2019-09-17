@@ -2,24 +2,13 @@ from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 from comment.models import Comment
 
-# Stuff from tutorial
-#class UserSerializer(serializers.HyperlinkedModelSerializer):
-#    class Meta:
-#        model = User
-#        fields = ['url', 'username', 'email', 'groups']
-#
-#class GroupSerializer(serializers.HyperlinkedModelSerializer):
-#    class Meta:
-#        model = Group
-#        fields = ['url', 'name']
-
 # Comment stuff
 class CommentSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.username')
+    #author = serializers.ReadOnlyField(source='owner.username') # not working!
     class Meta:
         model = Comment
-        owner = serializers.ReadOnlyField(source='owner.username')
         #fields = ['id', 'owner',  'author', 'comment_text', 'status', ]
-        # author = serializers.ReadOnlyField(source='owner.username') # not working!
         fields = ['id', 'owner', 'geom', 'author', 'comment_text', 'status', ]
                     #'time_stamp' ]
 
