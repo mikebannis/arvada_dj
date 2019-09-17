@@ -1,19 +1,13 @@
-from django.shortcuts import render
-# tutorial imports
-#from django.contrib.auth.models import User, Group
-#from rest_framework import viewsets
-#from .serializers import UserSerializer, GroupSerializer
-
-# my imports
-#from django.http import HttpResponse, JsonResponse
-#from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from django.utils.decorators import method_decorator
 from rest_framework import permissions,  generics
 from rest_framework.response import Response
 from comment.models import Comment
 from comment.serializers import CommentSerializer, UserSerializer
 from comment.permissions import IsOwnerOrReadOnly
 
+#@method_decorator(csrf_exempt, name='dispatch')
 class CommentList(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer

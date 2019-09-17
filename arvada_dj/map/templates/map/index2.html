@@ -109,4 +109,7 @@
   <script src="{% static 'webmap/./resources/Autolinker.min.js' %}"></script>
 
   <script src="{% static 'webmap/./resources/comments.js' %}"></script>
+  <script>
+    var csrfToken = "{{csrf_token}}";
+  </script>
 {% endblock %}
