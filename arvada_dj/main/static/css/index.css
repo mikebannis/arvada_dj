@@ -1,0 +1,13 @@
+/* Center the text */
+.welcome {
+    text-align: center;
+    height: 100%;
+}
+
+.welcome-inner {
+    /*display: inline-block;*/
+    font-size: 22px;
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-left: 50px;
+}

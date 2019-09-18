@@ -45,14 +45,14 @@
       }
   </style>
   <style>
-      html, body, #map {
+/*      html, body, #map {
           width: 100%;
           height: 100%;
           padding: 0;
           margin: 0;
           text-align: left;
           background: white;
-      }
+      }*/
       .locate {
           top: 6em;
           left: .5em;
@@ -111,5 +111,16 @@
   <script src="{% static 'webmap/./resources/comments.js' %}"></script>
   <script>
     var csrfToken = "{{csrf_token}}";
+    /// ------------------- Fix height of map 
+    var setMapHeight = function () {
+        var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+        var navHeight = document.getElementById('myTopnav').clientHeight;
+        //alert("vieHeight "+ viewHeight+ " navheight "+ navHeight);
+        document.getElementById("map").style.height = (viewHeight - navHeight)+"px";
+        document.getElementById("content").style.height = (viewHeight - navHeight)+"px";
+        map.updateSize(); // prevents map from being skewed on orientation change
+    }
+    setMapHeight();
+    window.onresize = setMapHeight;
   </script>
 {% endblock %}

@@ -1,12 +1,17 @@
 {% extends "base_generic.html" %}
-
+{% load static %}
 {% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
 {% endblock %}
 
 {% block content %}
-    <h1>Welcome to the Arvada
-      Stormwater Master Plan. Please
-      <a href="{% url 'login'%}?next={{request.path}}">login</a> 
-      to proceed. If you do not
-      have a user name, please contact Jennifer Winters at RESPEC.</h1>
+   <div class="welcome">
+     <div class="welcome-inner">
+       Welcome to the Arvada
+       Stormwater Master Plan. Please
+       <a href="{% url 'login'%}?next=/map/">login</a> 
+       to proceed. If you do not
+       have a user name, please contact Jennifer Winters at RESPEC.
+     </div>
+   </div>
 {% endblock %}
