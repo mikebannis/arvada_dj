@@ -111,7 +111,8 @@
   <script src="{% static 'webmap/./resources/comments.js' %}"></script>
   <script>
     var csrfToken = "{{csrf_token}}";
-    /// ------------------- Fix height of map 
+
+    // ------------------- Fix height of map 
     var setMapHeight = function () {
         var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
         var navHeight = document.getElementById('myTopnav').clientHeight;
@@ -122,5 +123,10 @@
     }
     setMapHeight();
     window.onresize = setMapHeight;
+
+    // ------------------- Fix height of outer layer switcher to make visible panel
+    var myLayerSwitcher = document.getElementsByClassName('layer-switcher')[0];
+    var myInnerLayerSwitcher = document.getElementsByClassName('panel')[0];
+    myLayerSwitcher.style.height = myInnerLayerSwitcher.getBoundingClientRect().height + "px";
   </script>
 {% endblock %}
