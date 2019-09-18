@@ -8,10 +8,15 @@
    <div class="welcome">
      <div class="welcome-inner">
        Welcome to the Arvada
-       Stormwater Master Plan. Please
-       <a href="{% url 'login'%}?next=/map/">login</a> 
+       Stormwater Master Plan. 
+       {% if not user.is_authenticated %}
+       Please
+       <a href="{% url 'login'%}?next=/map/">log in</a> 
        to proceed. If you do not
        have a user name, please contact Jennifer Winters at RESPEC.
+       {% else %}
+       Click on <a href="/map/">Map</a> to continue to the project web map.
+       {% endif %}
      </div>
    </div>
 {% endblock %}
