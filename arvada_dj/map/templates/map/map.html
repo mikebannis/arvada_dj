@@ -125,8 +125,10 @@
     window.onresize = setMapHeight;
 
     // ------------------- Fix height of outer layer switcher to make visible panel
-    var myLayerSwitcher = document.getElementsByClassName('layer-switcher')[0];
-    var myInnerLayerSwitcher = document.getElementsByClassName('panel')[0];
-    myLayerSwitcher.style.height = myInnerLayerSwitcher.getBoundingClientRect().height + "px";
+    if (! isMobileDevice()) {
+      var myLayerSwitcher = document.getElementsByClassName('layer-switcher')[0];
+      var myInnerLayerSwitcher = document.getElementsByClassName('panel')[0];
+      myLayerSwitcher.style.height = myInnerLayerSwitcher.getBoundingClientRect().height + "px";
+    }
   </script>
 {% endblock %}
