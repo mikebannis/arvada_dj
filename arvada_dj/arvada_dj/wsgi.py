@@ -11,7 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
-print('here!')
+#print('here!')
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'arvada_dj.settings')
 

@@ -15,3 +15,6 @@ class Comment(models.Model):
         self.author = self.owner
         self.time_stamp = dt.now()
         super(Comment, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.owner.username + '-' + self.comment_text

@@ -37,7 +37,7 @@ SECRET_KEY = get_secret('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mikebannister.co']
+ALLOWED_HOSTS = ['respec.dev', 'www.respec.dev']
 
 APPEND_SLASH=False 
 
