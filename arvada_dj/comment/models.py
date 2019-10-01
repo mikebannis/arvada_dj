@@ -18,3 +18,13 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.owner.username + '-' + self.comment_text
+
+class Assumption(models.Model):
+    geom = models.PointField(null=False)
+    text = models.TextField()
+    status = models.CharField(max_length=254, null=True) 
+
+class Question(models.Model):
+    geom = models.PolygonField(null=False)
+    text = models.TextField()
+    status = models.CharField(max_length=254, null=True) 
