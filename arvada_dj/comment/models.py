@@ -24,7 +24,7 @@ class Response(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.owner.username + '-' + self.text
+        return self.author + '-' + self.text
 
 
 class Comment(models.Model):
