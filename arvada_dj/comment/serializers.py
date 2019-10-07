@@ -16,12 +16,13 @@ class ResponseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Response
-        fields = ['id', 'owner', 'author', 'text', 'status', 'target_object']
+        fields = ['id', 'owner', 'author', 'text', 'time_stamp',]
+                  #'target_object']
 
 
 class UserSerializer(serializers.ModelSerializer):
     comments = serializers.PrimaryKeyRelatedField(many=True,
-                    queryset=Comment.objects.all())
+                                            queryset=Comment.objects.all())
 
     class Meta:
         model = User
