@@ -9,7 +9,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 class Response(models.Model):
     owner = models.ForeignKey('auth.User', related_name='response',
             on_delete=models.CASCADE, default=1)
-    author = models.CharField(max_length=80)
+    author_name = models.CharField(max_length=80)
     text = models.TextField()
     time_stamp = models.DateTimeField()
 
@@ -19,12 +19,12 @@ class Response(models.Model):
     target_object = GenericForeignKey('content_type', 'object_id')
 
     def save(self, *args, **kwargs):
-        self.author = self.owner
+        self.author_name = self.owner.first_name + ' ' + self.owner.last_name
         self.time_stamp = dt.now()
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.author + '-' + self.text
+        return self.author_name + '-' + self.text
 
 
 class Comment(models.Model):

@@ -13,10 +13,12 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class ResponseSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    author_name = serializers.ReadOnlyField()
+    time_stamp = serializers.ReadOnlyField()
 
     class Meta:
         model = Response
-        fields = ['id', 'owner', 'author', 'text', 'time_stamp',]
+        fields = ['id', 'owner', 'author_name', 'text', 'time_stamp',]
                   #'target_object']
 
 

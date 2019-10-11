@@ -37,6 +37,9 @@
           <i class="fa fa-caret-down"></i>
         </button>
         <div class="dropdown-content">
+          {% if user.is_staff %} 
+          <a href="{% url 'admin:index'%}">Admin</a>   
+          {% endif %}
           <a href="{% url 'logout'%}?next=/">Logout</a>   
         </div>
       </div>

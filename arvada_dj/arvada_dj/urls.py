@@ -27,7 +27,7 @@ urlpatterns = [
     path('main/', include('main.urls')),
     path('map/', include('map.urls')),
     path('', main.views.index),
-    path('admin/', admin.site.urls),
+    path('arvada_admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),
     path('arvada/', main.views.arvada),
     #path('', include(router.urls)),
