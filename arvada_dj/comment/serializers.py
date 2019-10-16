@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from comment.models import Comment, Response
+from comment.models import Comment, Response, Assumption, Question
 
 
 class ResponseSerializer(serializers.ModelSerializer):
@@ -14,15 +14,27 @@ class ResponseSerializer(serializers.ModelSerializer):
 
 
 class ResponsePostSerializer(serializers.Serializer):
-    # owner = serializers.ReadOnlyField(source='owner.username')
+    # target_type is either 'comment', 'assumption', or 'question' and
+    # indicates the type of object to link to
+    target_type = serializers.CharField()
     target_id = serializers.IntegerField()
     text = serializers.CharField()
 
     def create(self, validated_data):
         # Grab the target object for the response
-        target = Comment.objects.get(id=validated_data['target_id'])
+        if validated_data['target_type'] == 'comment':
+            target = Comment.objects.get(id=validated_data['target_id'])
+        elif validated_data['target_type'] == 'assumption':
+            target = Assumption.objects.get(id=validated_data['target_id'])
+        elif validated_data['target_type'] == 'question':
+            target = Question.objects.get(id=validated_data['target_id'])
+        else:
+            raise NotImplemented('Target type: ' + validated_data['target_type'] +
+                                 ' is not supported.')
+
         validated_data['target_object'] = target
         del validated_data['target_id']
+        del validated_data['target_type']
         return Response.objects.create(**validated_data)
 
 

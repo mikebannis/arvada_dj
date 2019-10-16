@@ -4,7 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response as DRF_Response
 from rest_framework.permissions import IsAuthenticated
 
-from comment.models import Comment, Response
+from comment.models import Comment, Response, Assumption, Question
 from comment.serializers import CommentSerializer, UserSerializer
 from comment.serializers import ResponseSerializer, ResponsePostSerializer
 from comment.permissions import IsOwnerOrReadOnly
@@ -40,12 +40,21 @@ class ResponseDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer.save(owner=self.request.user)
 
 
-class CommentResponses(generics.ListAPIView):
+class ResponsesByObject(generics.ListAPIView):
     serializer_class = ResponseSerializer
 
     def get_queryset(self):
-        comment = Comment.objects.get(id=self.kwargs['comment_id'])
-        return comment.responses.all()
+        if self.kwargs['object_type'] == 'comment':
+            target = Comment.objects.get(id=self.kwargs['object_id'])
+        elif self.kwargs['object_type'] == 'assumption':
+            target = Assumption.objects.get(id=self.kwargs['object_id'])
+        elif self.kwargs['object_type'] == 'question':
+            target = Question.objects.get(id=self.kwargs['object_id'])
+        else:
+            raise NotImplementedError('Object type: ' +
+                                      self.kwargs['object_type'] +
+                                      ' is not supported.')
+        return target.responses.all()
 
 
 class CommentList(generics.ListCreateAPIView):

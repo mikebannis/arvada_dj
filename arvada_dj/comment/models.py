@@ -23,7 +23,8 @@ class Response(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.author_name + '-' + self.text
+        return '(' + str(self.content_type) + ') ' + self.author_name + '-' + \
+               self.text
 
 
 class Comment(models.Model):
@@ -53,9 +54,15 @@ class Assumption(models.Model):
     status = models.CharField(max_length=254, null=True)
     responses = GenericRelation(Response)
 
+    def __str__(self):
+        return str(self.id) + '-' + self.text
+
 
 class Question(models.Model):
     geom = models.PolygonField(null=False)
     text = models.TextField()
     status = models.CharField(max_length=254, null=True)
     responses = GenericRelation(Response)
+
+    def __str__(self):
+        return str(self.id) + '-' + self.text

@@ -10,8 +10,8 @@ urlpatterns = [
     path('comments/<int:pk>/', views.CommentDetail.as_view()),
 
     # Return all responses for comment #comment_id
-    path('comment-responses/<int:comment_id>/',
-         views.CommentResponses.as_view()),
+    path('responses-by-object/<str:object_type>/<int:object_id>/',
+         views.ResponsesByObject.as_view()),
 
     path('users/', views.UserList.as_view()),
     path('users/<int:pk>/', views.UserDetail.as_view()),
