@@ -8,12 +8,13 @@ urlpatterns = [
     path('responses/<int:pk>/', views.ResponseDetail.as_view()),
     path('comments/', views.CommentList.as_view()),
     path('comments/<int:pk>/', views.CommentDetail.as_view()),
+
+    # Return all responses for comment #comment_id
     path('comment-responses/<int:comment_id>/',
          views.CommentResponses.as_view()),
+
     path('users/', views.UserList.as_view()),
     path('users/<int:pk>/', views.UserDetail.as_view()),
-    #path('comments/', views.comment_list),
-    #path('comments/<int:pk>/', views.comment_detail),
 ]
 
 urlpatterns += [

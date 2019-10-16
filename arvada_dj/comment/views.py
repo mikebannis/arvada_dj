@@ -1,69 +1,78 @@
 from django.contrib.auth.models import User
-#from django.utils.decorators import method_decorator
-#from rest_framework import permissions,
-from rest_framework import generics
-#from rest_framework.response import Response
+from rest_framework import generics, status
+from rest_framework.views import APIView
+from rest_framework.response import Response as DRF_Response
+from rest_framework.permissions import IsAuthenticated
+
 from comment.models import Comment, Response
 from comment.serializers import CommentSerializer, UserSerializer
-from comment.serializers import ResponseSerializer
+from comment.serializers import ResponseSerializer, ResponsePostSerializer
 from comment.permissions import IsOwnerOrReadOnly
 
-class ResponseList(generics.ListCreateAPIView):
-    queryset = Response.objects.all()
-    serializer_class = ResponseSerializer
-    permission_classes = [#permissions.IsAuthenticatedOrReadOnly,
-                            IsOwnerOrReadOnly]
 
-    def perform_create(self, serializer):
-        # Set current user to owner of comment
-        serializer.save(owner=self.request.user)
+class ResponseList(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, request, format=None):
+        responses = Response.objects.all()
+        serializer = ResponseSerializer(responses, many=True)
+        return DRF_Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ResponsePostSerializer(data=request.data)
+        if serializer.is_valid():
+            response = serializer.save()
+
+            # Use GET serializer for response
+            return DRF_Response(ResponseSerializer(response).data,
+                                status=status.HTTP_201_CREATED)
+        return DRF_Response(serializer.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+
 
 class ResponseDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Response.objects.all()
     serializer_class = ResponseSerializer
-    permission_classes = [#permissions.IsAuthenticatedOrReadOnly,
-                            IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         # Set current user to owner of comment
         serializer.save(owner=self.request.user)
 
+
 class CommentResponses(generics.ListAPIView):
-    #queryset = Response.objects.get()
     serializer_class = ResponseSerializer
-    #permission_classes = [#permissions.IsAuthenticatedOrReadOnly,
-                            #IsOwnerOrReadOnly]
 
     def get_queryset(self):
         comment = Comment.objects.get(id=self.kwargs['comment_id'])
         return comment.responses.all()
 
-#@method_decorator(csrf_exempt, name='dispatch')
+
 class CommentList(generics.ListCreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [#permissions.IsAuthenticatedOrReadOnly,
-                            IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         # Set current user to owner of comment
         serializer.save(owner=self.request.user)
+
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
-    permission_classes = [#permissions.IsAuthenticatedOrReadOnly,
-                            IsOwnerOrReadOnly]
+    permission_classes = [IsOwnerOrReadOnly]
 
     def perform_create(self, serializer):
         # Set current user to owner of comment
         serializer.save(owner=self.request.user)
+
 
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
+
 class UserDetail(generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-
