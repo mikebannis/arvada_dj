@@ -39,7 +39,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['respec.dev', 'www.respec.dev', '127.0.0.1', 'localhost']
 
-APPEND_SLASH=False 
+APPEND_SLASH = True 
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
