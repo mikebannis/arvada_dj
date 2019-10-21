@@ -20,7 +20,12 @@ var questionSource = new ol.source.Vector({
 var lyr_mp_question = new ol.layer.Vector({
     source: questionSource,
     declutter: false,
-    style: [new ol.style.Style({
+    style: function (feature, resolution) {
+        if (feature.get('status') == 'closed' ) { 
+            // Closed, don't display
+            return;
+        } else {
+            return [new ol.style.Style({
                 stroke: new ol.style.Stroke({
                     color: 'rgba(35,35,35,1.0)',
                     lineDash: null,
@@ -37,8 +42,9 @@ var lyr_mp_question = new ol.layer.Vector({
                 image: new ol.style.Icon({
                     src: '/static/webmap/styles/legend/question-24.png'
                 }),
-            })
-        ],
+            })];
+        }
+    },
     title: '<img src="/static/webmap/styles/legend/question-24.png"> Question',
     short_title: 'Question'
 });
@@ -71,11 +77,18 @@ var assumptionSource = new ol.source.Vector({
 var lyr_mp_assumption = new ol.layer.Vector({
     source: assumptionSource,
     declutter: false,
-    style: new ol.style.Style({
-        image: new ol.style.Icon({
-            src: '/static/webmap/styles/legend/flag-24.png'
-        }),
-    }),
+    style: function (feature, resolution) {
+        if (feature.get('status') == 'closed' ) { 
+            // Closed, don't display
+            return;
+        } else {
+            return new ol.style.Style({
+                image: new ol.style.Icon({
+                    src: '/static/webmap/styles/legend/flag-24.png'
+                }),
+            });
+        }
+    },
     title: '<img src="/static/webmap/styles/legend/flag-24.png"> Assumption',
     short_title: 'Assumption'
 });
@@ -109,11 +122,18 @@ var commentSource = new ol.source.Vector({
 var lyr_mp_comment = new ol.layer.Vector({
     source: commentSource,
     declutter: false,
-    style: new ol.style.Style({
-        image: new ol.style.Icon({
-            src: '/static/webmap/styles/legend/35px_comment_bubble.png'
-        }),
-    }),
+    style: function (feature, resolution) {
+        if (feature.get('status') == 'closed' ) { 
+            // Closed, don't display
+            return;
+        } else {
+            return new ol.style.Style({
+                image: new ol.style.Icon({
+                    src: '/static/webmap/styles/legend/35px_comment_bubble.png'
+                }),
+            });
+        }
+    },
     title: '<img src="/static/webmap/styles/legend/20px_comment_bubble.png"> Comment',
     short_title: 'Comment'
 });

@@ -36,8 +36,9 @@ class Comment(models.Model):
     status = models.CharField(max_length=20)
     time_stamp = models.DateTimeField()
     # Is this a comment on hydrology, alts, CD, etc?
-    generation = models.CharField(max_length=40, null=True)
+    generation = models.CharField(max_length=40, null=True, blank=True)
     responses = GenericRelation(Response)
+    num_responses = models.IntegerField(null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.author = self.owner.first_name + ' ' + self.owner.last_name
@@ -45,24 +46,28 @@ class Comment(models.Model):
         super(Comment, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.owner.username + '-' + self.comment_text
+        return self.owner.username + '-' + self.comment_text + '-' + self.status
 
 
 class Assumption(models.Model):
     geom = models.PointField(null=False)
     text = models.TextField()
     status = models.CharField(max_length=254, null=True)
+    generation = models.CharField(max_length=40, null=True, blank=True)
     responses = GenericRelation(Response)
+    num_responses = models.IntegerField(null=True, blank=True)
 
     def __str__(self):
-        return str(self.id) + '-' + self.text
+        return str(self.id) + '-' + self.text + '-' + self.status
 
 
 class Question(models.Model):
     geom = models.PolygonField(null=False)
     text = models.TextField()
     status = models.CharField(max_length=254, null=True)
+    generation = models.CharField(max_length=40, null=True, blank=True)
     responses = GenericRelation(Response)
+    num_responses = models.IntegerField(null=True, blank=True, default=0)
 
     def __str__(self):
-        return str(self.id) + '-' + self.text
+        return str(self.id) + '-' + self.text + '-' + self.status
