@@ -39,7 +39,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['respec.dev', 'www.respec.dev', '127.0.0.1', 'localhost']
 
-APPEND_SLASH = True 
+APPEND_SLASH = True
 
 REST_FRAMEWORK = {
     # Use Django's standard `django.contrib.auth` permissions,
@@ -87,6 +87,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'map.context_processors.app_ver',
             ],
         },
     },

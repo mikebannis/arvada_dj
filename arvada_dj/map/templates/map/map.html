@@ -7,12 +7,12 @@
   <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <link rel="stylesheet" href="{% static 'webmap/resources/ol.css' %}">
-  <link rel="stylesheet" href="{% static 'webmap/resources/fontawesome-all.min.css' %}">
-  <link rel="stylesheet" href="{% static 'webmap/resources/ol3-layerswitcher.css' %}">
-  <link rel="stylesheet" href="{% static 'webmap/resources/qgis2web.css' %}">
-  <link rel="stylesheet" href="{% static 'webmap/resources/comments.css' %}">
-  <link rel="stylesheet" href="{% static 'webmap/resources/logos.css' %}"> 
+  <link rel="stylesheet" href="{% static 'webmap/resources/ol.css' %}?v{{ app_ver }}">
+  <link rel="stylesheet" href="{% static 'webmap/resources/fontawesome-all.min.css' %}?v{{ app_ver }}">
+  <link rel="stylesheet" href="{% static 'webmap/resources/ol3-layerswitcher.css' %}?v{{ app_ver }}">
+  <link rel="stylesheet" href="{% static 'webmap/resources/qgis2web.css' %}?v{{ app_ver }}">
+  <link rel="stylesheet" href="{% static 'webmap/resources/comments.css' %}?v{{ app_ver }}">
+  <link rel="stylesheet" href="{% static 'webmap/resources/logos.css' %}?v{{ app_ver }}"> 
   <style>
       .search-layer {
         top: 65px;
@@ -80,41 +80,41 @@
           <div id="popup-content"></div>
       </div>
   </div>
-  <script src="{% static 'webmap/resources/qgis2web_expressions.js' %}"></script>
-  <script src="{% static 'webmap/resources/polyfills.js' %}"></script>
-  <script src="{% static 'webmap/resources/functions.js' %}"></script>
-  <script src="{% static 'webmap/resources/ol.js' %}"></script>
-  <script src="{% static 'webmap/resources/ol3-layerswitcher.js' %}"></script>
+  <script src="{% static 'webmap/resources/qgis2web_expressions.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/resources/polyfills.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/resources/functions.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/resources/ol.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/resources/ol3-layerswitcher.js' %}?v{{ app_ver }}"></script>
   
-  <script src="{% static 'webmap/styles/arvada_swmpcreeks_4_style.js' %}"></script>
-  <script src="{% static 'webmap/styles/MajorWatersheds_0_style.js' %}"></script>
-  <script src="{% static 'webmap/styles/ArvadaBoundary_0_style.js' %}"></script>
-  <script src="{% static 'webmap/styles/arvada_OutfallToCentroid_style.js' %}"></script>
+  <script src="{% static 'webmap/styles/arvada_swmpcreeks_4_style.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/MajorWatersheds_0_style.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/ArvadaBoundary_0_style.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/arvada_OutfallToCentroid_style.js' %}?v{{ app_ver }}"></script>
 
-  <script src="{% static 'webmap/styles/MajorOutfallBasins_0_style.js' %}"></script>
-  <script src="{% static 'webmap/styles/draft_Flow_Paths_0_style.js' %}"></script>
-  <script src="{% static 'webmap/styles/arvada_designPoint_0_style.js' %}"></script>
-  <script src="{% static 'webmap/styles/mp_picture.js' %}"></script>
+  <script src="{% static 'webmap/styles/MajorOutfallBasins_0_style.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/draft_Flow_Paths_0_style.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/arvada_designPoint_0_style.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/mp_picture.js' %}?v{{ app_ver }}"></script>
 
-  <script src="{% static 'webmap/styles/sw_inlet.js' %}"></script>
-  <script src="{% static 'webmap/styles/sw_outfall_style.js' %}"></script>
-  <script src="{% static 'webmap/styles/sw_gravity_main.js' %}"></script>
-  <script src="{% static 'webmap/styles/sw_detention.js' %}"></script>
-  <script src="{% static 'webmap/styles/sw_manhole.js' %}"></script>
-  <script src="{% static 'webmap/styles/sw_pipe_out.js' %}"></script>
-  <script src="{% static 'webmap/styles/sw_culvert.js' %}"></script>
-  <script src="{% static 'webmap/styles/sw_storm_ditch.js' %}"></script>
+  <script src="{% static 'webmap/styles/sw_inlet.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/sw_outfall_style.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/sw_gravity_main.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/sw_detention.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/sw_manhole.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/sw_pipe_out.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/sw_culvert.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/sw_storm_ditch.js' %}?v{{ app_ver }}"></script>
   
-  <script src="{% static 'webmap/styles/irr_gravity_main.js' %}"></script>
-  <script src="{% static 'webmap/styles/irr_manhole_style.js' %}"></script>
-  <script src="{% static 'webmap/styles/irr_ditch.js' %}"></script>
+  <script src="{% static 'webmap/styles/irr_gravity_main.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/irr_manhole_style.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/styles/irr_ditch.js' %}?v{{ app_ver }}"></script>
   
-  <script src="{% static 'webmap/layers/layers.js' %}" type="text/javascript"></script> 
-  <script src="{% static 'webmap/resources/qgis2web.js' %}"></script>
-  <script src="{% static 'webmap/resources/geolocate.js' %}"></script>
-  <script src="{% static 'webmap/resources/Autolinker.min.js' %}"></script>
+  <script src="{% static 'webmap/layers/layers.js' %}?v{{ app_ver }}" type="text/javascript"></script> 
+  <script src="{% static 'webmap/resources/qgis2web.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/resources/geolocate.js' %}?v{{ app_ver }}"></script>
+  <script src="{% static 'webmap/resources/Autolinker.min.js' %}?v{{ app_ver }}"></script>
 
-  <script src="{% static 'webmap/resources/comments.js' %}"></script>
+  <script src="{% static 'webmap/resources/comments.js' %}?v{{ app_ver }}"></script>
   <script>
     var csrfToken = "{{csrf_token}}";
 
@@ -136,5 +136,6 @@
       var myInnerLayerSwitcher = document.getElementsByClassName('panel')[0];
       myLayerSwitcher.style.height = myInnerLayerSwitcher.getBoundingClientRect().height + "px";
     }
+  
   </script>
 {% endblock %}
