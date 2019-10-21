@@ -1,3 +1,0 @@
-[submodule "arvada_dj/staticdev/webmap"]
-	path = arvada_dj/staticdev/webmap
-	url = https://github.com/mikebannis/arvada_swmp_web.git

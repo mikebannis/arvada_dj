@@ -1,0 +1,19 @@
+.arvada{
+    width: 200px;
+    position: absolute;
+    left:11px;
+    bottom:95px;
+}
+
+.respec_logo{
+    width: 200px;
+    position: absolute;
+    left:50px;
+    bottom:15px;
+}
+.respec_icon{
+	width: 30px;
+	position: absolute;
+	left:95px;
+	bottom:29px;
+}

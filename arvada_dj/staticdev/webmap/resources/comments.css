@@ -1,0 +1,69 @@
+.cmt-author {
+    margin-top: 10px;
+    /*margin-bottom: 7px;*/
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.cmt-div {
+    display: flex;
+    flex-direction: column;
+}
+
+.cmt-date {
+    font-style: italic;
+    font-size: 0.9em;
+}
+
+.cmt-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 8px;
+}
+
+.cmt-txt {
+    margin-top: 8px;
+}
+
+#cmt-txt-area {
+    width: 246px;
+    height: 60px;
+}
+
+#reply-txt-area {
+    margin-top: 15px;
+    width: 246px;
+    height: 60px;
+}
+
+.response-header {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}
+
+.response-div {
+    margin-left: 2em;
+    margin-bottom: 1em;
+}
+
+.response-author {
+    font-weight: bold;
+    font-size: 1.05em;
+}
+
+.response-txt {
+    margin-top: 0.25em;
+    margin-bottom: 0.25em;
+}
+
+.response-date {
+    /*font-style: italic;*/
+    font-size: 0.80em;
+}
+
+#reply-button {
+    float: right;
+}
