@@ -7,7 +7,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 
 class Response(models.Model):
     owner = models.ForeignKey('auth.User', related_name='response',
-                              on_delete=models.CASCADE, default=1)
+                              on_delete=models.CASCADE, default=2)
     author_name = models.CharField(max_length=80)
     text = models.TextField()
     time_stamp = models.DateTimeField()

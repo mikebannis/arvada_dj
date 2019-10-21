@@ -21,7 +21,7 @@ class ResponseList(APIView):
     def post(self, request, format=None):
         serializer = ResponsePostSerializer(data=request.data)
         if serializer.is_valid():
-            response = serializer.save()
+            response = serializer.save(owner=self.request.user)
 
             # Use GET serializer for response
             return DRF_Response(ResponseSerializer(response).data,
