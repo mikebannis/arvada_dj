@@ -21,10 +21,13 @@ var lyr_mp_question = new ol.layer.Vector({
     source: questionSource,
     declutter: false,
     style: function (feature, resolution) {
-        if (feature.get('status') == 'closed' ) { 
+        var _status = feature.get('status');
+        var numResponses = feature.get('num_responses');
+        if (_status == 'closed' ) { 
             // Closed, don't display
             return;
-        } else {
+        } else if (numResponses == 0 || _status == 'help') {
+            // no responses, or needs more info, bright white icon    
             return [new ol.style.Style({
                 stroke: new ol.style.Stroke({
                     color: 'rgba(35,35,35,1.0)',
@@ -36,11 +39,29 @@ var lyr_mp_question = new ol.layer.Vector({
                 fill: new ol.style.Fill({
                     color: 'rgba(202,52,167,0.3)'
                 }),
-
             }),
             new ol.style.Style({
                 image: new ol.style.Icon({
                     src: '/static/webmap/styles/legend/question-24.png'
+                }),
+            })];
+        } else {
+            // Has a response, dark icon
+            return [new ol.style.Style({
+                stroke: new ol.style.Stroke({
+                    color: 'rgba(35,35,35,1.0)',
+                    lineDash: null,
+                    lineCap: 'butt',
+                    lineJoin: 'miter',
+                    width: 2
+                }),
+                fill: new ol.style.Fill({
+                    color: 'rgba(202,52,167,0.3)'
+                }),
+            }),
+            new ol.style.Style({
+                image: new ol.style.Icon({
+                    src: '/static/webmap/styles/legend/question-24-dark.png'
                 }),
             })];
         }
@@ -78,13 +99,23 @@ var lyr_mp_assumption = new ol.layer.Vector({
     source: assumptionSource,
     declutter: false,
     style: function (feature, resolution) {
-        if (feature.get('status') == 'closed' ) { 
+        var _status = feature.get('status');
+        var numResponses = feature.get('num_responses');
+        if (_status == 'closed' ) { 
             // Closed, don't display
             return;
-        } else {
+        } else if (numResponses == 0 || _status == 'help') {
+            // Needs attention, use bright icon 
             return new ol.style.Style({
                 image: new ol.style.Icon({
                     src: '/static/webmap/styles/legend/flag-24.png'
+                }),
+            });
+        } else {
+            // Already responded to, use dark icon
+            return new ol.style.Style({
+                image: new ol.style.Icon({
+                    src: '/static/webmap/styles/legend/flag-24_dark.png'
                 }),
             });
         }
@@ -123,13 +154,23 @@ var lyr_mp_comment = new ol.layer.Vector({
     source: commentSource,
     declutter: false,
     style: function (feature, resolution) {
-        if (feature.get('status') == 'closed' ) { 
+        var _status = feature.get('status');
+        var numResponses = feature.get('num_responses');
+        if (_status == 'closed' ) { 
             // Closed, don't display
             return;
-        } else {
+        } else if (numResponses == 0 || _status == 'help') {
+            //#console.log(feature.get('comment_text') + ' WHITE'+numResponses);
             return new ol.style.Style({
                 image: new ol.style.Icon({
                     src: '/static/webmap/styles/legend/35px_comment_bubble.png'
+                }),
+            });
+        } else {
+            //console.log(feature.get('comment_text') + ' DARK'+numResponses);
+            return new ol.style.Style({
+                image: new ol.style.Icon({
+                    src: '/static/webmap/styles/legend/35px_comment_bubble_dark.png'
                 }),
             });
         }

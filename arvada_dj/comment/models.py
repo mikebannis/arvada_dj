@@ -3,7 +3,7 @@ from datetime import datetime as dt
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericRelation
-from django.db.models.signals import post_save, post_delete
+from django.db.models.signals import post_save, pre_delete, post_delete
 
 
 def update_response_counts(sender, instance, **kwargs):
@@ -12,10 +12,11 @@ def update_response_counts(sender, instance, **kwargs):
     respones get saved/deleted.
     """
     target = instance.target_object
-    target.num_responses = len(target.responses.all())
-    target.save()
+    # Don't update counts if the target was already deleted
+    if target is not None:
+        target.num_responses = len(target.responses.all())
+        target.save()
     # print (target, '# of responses = ',  target.num_responses)
-    return
 
 
 class Response(models.Model):
@@ -45,6 +46,8 @@ class Response(models.Model):
 
 
 post_save.connect(update_response_counts, sender=Response)
+# post_delete caused issues when deleting target objects
+#pre_delete.connect(update_response_counts, sender=Response)
 post_delete.connect(update_response_counts, sender=Response)
 
 
@@ -59,7 +62,7 @@ class Comment(models.Model):
     # Is this a comment on hydrology, alts, CD, etc?
     generation = models.CharField(max_length=40, null=True, blank=True)
     responses = GenericRelation(Response)
-    num_responses = models.IntegerField(null=True, blank=True)
+    num_responses = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         self.author = self.owner.first_name + ' ' + self.owner.last_name
@@ -77,7 +80,7 @@ class Assumption(models.Model):
     status = models.CharField(max_length=254, null=True)
     generation = models.CharField(max_length=40, null=True, blank=True)
     responses = GenericRelation(Response)
-    num_responses = models.IntegerField(null=True, blank=True)
+    num_responses = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.id) + '-' + self.text + '-' + self.status
@@ -89,7 +92,7 @@ class Question(models.Model):
     status = models.CharField(max_length=254, null=True)
     generation = models.CharField(max_length=40, null=True, blank=True)
     responses = GenericRelation(Response)
-    num_responses = models.IntegerField(null=True, blank=True, default=0)
+    num_responses = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.id) + '-' + self.text + '-' + str(self.status) + \

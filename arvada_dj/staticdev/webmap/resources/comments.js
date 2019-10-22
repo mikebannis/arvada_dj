@@ -110,7 +110,7 @@ var saveComment = function() {
         "author": "Not used, remove from post api",
         "comment_text": commentText,
         "geom": wkt,
-        "status": "Not used"
+        "status": "unread"
     });
     xhr.send(body);
 

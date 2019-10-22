@@ -156,6 +156,18 @@ var saveReply = function (objectType, commentId) {
                 responseDiv.parentNode.removeChild(responseDiv);
             }
             addResponses(objectType, commentId);
+            // Update layer so icon has correct color
+            switch(objectType) {
+                case 'comment':
+                    commentSource.clear();
+                    break;
+                case 'assumption':
+                    assumptionSource.clear();
+                    break;
+                case 'question':
+                    questionSource.clear();
+                    sleep(3000).then(createQuestionPoints);
+            }
         }
         else {
             alert('Request failed.  Returned status of ' + xhr.status + ' ' + xhr.statusText +
@@ -491,12 +503,9 @@ const sleep = (milliseconds) => {
 }
 
 /**
- * Create points for question mark icons on question polygons. The 3 second delay
- * is to allow the data to load via WMS first. This is a hack and should be tied
- * to the data being fully loaded, but sleeping 3 seconds works for now
- * This probably will NOT work if the question layer is turned off by default
+ * Create points to be used for quetions feature icons
  */
-sleep(3000).then(() => {
+var createQuestionPoints = function() {
     var feats = questionSource.getFeatures();
     feats.forEach(function (feature, i) {
         var geomPoint = feature.getGeometry().getInteriorPoint();
@@ -507,8 +516,26 @@ sleep(3000).then(() => {
         // Set id and properties for new points
         featureInteriorPoint.setId('ip_' + feature.getId());
         const props = feature.getProperties();
-        const newProps = { text: props.text, status: props.status };
+        const newProps = { text: props.text, status: props.status, num_responses: props.num_responses };
+        //const newProps = Object.assign(feature.getProperties());
         featureInteriorPoint.setProperties(newProps);
         questionSource.addFeature(featureInteriorPoint);
     });
-})
+}
+
+/**
+ * Create points for question mark icons on question polygons. The 3 second delay
+ * is to allow the data to load via WMS first. This is a hack and should be tied
+ * to the data being fully loaded, but sleeping 3 seconds works for now
+ * This probably will NOT work if the question layer is turned off by default
+ */
+sleep(3000).then(createQuestionPoints);
+
+/*
+var listenerKey = questionSource.on('change', function(e) {
+    if (questionSource.getState() == 'ready') {               
+        createQuestionPoints();
+        ol.Observable.unByKey(listenerKey);
+    }
+});*/
+
