@@ -531,11 +531,26 @@ var createQuestionPoints = function() {
  */
 sleep(3000).then(createQuestionPoints);
 
-/*
-var listenerKey = questionSource.on('change', function(e) {
-    if (questionSource.getState() == 'ready') {               
-        createQuestionPoints();
-        ol.Observable.unByKey(listenerKey);
-    }
-});*/
-
+/**
+ * Open welcome popup
+ */
+if (isMobileDevice()) { 
+    overlayPopup.setPosition([-11715148.79924472,4830254.33419547]);
+} else {
+    overlayPopup.setPosition([-11704299.32898235,4840925.25233708]);
+}   
+ol_popup_content.innerHTML = 
+`<h3> Welcome! </h3>
+ <p> Responses can now be directly added to comments, questions and assumptions. 
+ Icons now change color to indicate status. Light colored icons 
+ (<img style="height: 16px" src="/static/webmap/styles/legend/35px_comment_bubble.png">/
+ <img style="height: 16px" src="/static/webmap/styles/legend/question-24.png">/
+<img style="height: 16px" src="/static/webmap/styles/legend/flag-24.png">) indicate items that have
+not been responded to, or that need more information. Dark colored icons
+ (<img style="height: 16px" src="/static/webmap/styles/legend/35px_comment_bubble_dark.png">/
+ <img style="height: 16px" src="/static/webmap/styles/legend/question-24-dark.png">/
+<img style="height: 16px" src="/static/webmap/styles/legend/flag-24_dark.png">) indicate items that 
+have been responded to.</p>
+<h4>Thank you,</h4> 
+<h4>Your RESPEC Team</h4> `
+ol_popup_container.style.display = 'block';        

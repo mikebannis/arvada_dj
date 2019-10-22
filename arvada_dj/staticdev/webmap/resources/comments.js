@@ -36,6 +36,7 @@ map.addControl(new ol.control.Control({
 var commentCoord;
 // Open new comment popup
 map.on('singleclick', function(evt){
+    //alert(evt.coordinate);
     if (!doComment) {
         return;
     }
