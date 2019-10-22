@@ -9,6 +9,8 @@ from comment.serializers import CommentSerializer, UserSerializer
 from comment.serializers import ResponseSerializer, ResponsePostSerializer
 from comment.permissions import IsOwnerOrReadOnly
 
+from datetime import datetime as dt
+
 
 class ResponseList(APIView):
     permission_classes = (IsAuthenticated,)
@@ -64,7 +66,7 @@ class CommentList(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         # Set current user to owner of comment
-        serializer.save(owner=self.request.user)
+        serializer.save(owner=self.request.user, time_stamp=dt.now())
 
 
 class CommentDetail(generics.RetrieveUpdateDestroyAPIView):

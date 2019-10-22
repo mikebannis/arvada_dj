@@ -12,13 +12,9 @@ def update_response_counts(sender, instance, **kwargs):
     respones get saved/deleted.
     """
     target = instance.target_object
-    if isinstance(target, Comment):
-        # TODO the below code will overwrite time stampe for comments!
-        print('not for comments!')
-        return
     target.num_responses = len(target.responses.all())
     target.save()
-    #print (target, '# of responses = ',  target.num_responses)
+    # print (target, '# of responses = ',  target.num_responses)
     return
 
 
@@ -67,7 +63,8 @@ class Comment(models.Model):
 
     def save(self, *args, **kwargs):
         self.author = self.owner.first_name + ' ' + self.owner.last_name
-        self.time_stamp = dt.now()
+        # was overwriting timestamp on any save
+        # self.time_stamp = dt.now()
         super(Comment, self).save(*args, **kwargs)
 
     def __str__(self):
