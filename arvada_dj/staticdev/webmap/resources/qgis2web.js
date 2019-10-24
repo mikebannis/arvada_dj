@@ -551,6 +551,8 @@ not been responded to, or that need more information. Dark colored icons
  <img style="height: 16px" src="/static/webmap/styles/legend/question-24-dark.png">/
 <img style="height: 16px" src="/static/webmap/styles/legend/flag-24_dark.png">) indicate items that 
 have been responded to.</p>
+<p><b>Update (10/24/19):</b> Subcatchments can be viewed by turning on the 
+<i>Subcatchment</i> layer </p>
 <h4>Thank you,</h4> 
 <h4>Your RESPEC Team</h4> `
 ol_popup_container.style.display = 'block';        

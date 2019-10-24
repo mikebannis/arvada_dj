@@ -563,6 +563,39 @@ lyr_sw_storm_ditch.on('precompose', function(evt) {
 });
 
 //////////////////////////////////////////////
+// SubBasins
+/////////////////////////////////////////////
+var jsonSource_MP_Sub_Basins= new ol.source.Vector({
+    attributions: '<a href=""></a>',
+    format: new ol.format.GeoJSON(),
+    url: function(extent) {
+        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+             'request=GetFeature&typeName=arvada_swmp:mp_sub_basins&outputFormat=' +
+             'application/json&srsname=EPSG:3857'
+        },
+    crossOrigin: 'anonymous',
+});
+var lyr_SubBasins = new ol.layer.Vector({
+    declutter: true,
+    source: jsonSource_MP_Sub_Basins,
+    style: style_MP_Sub_Basins,
+    title: '<img src="/static/webmap/styles/legend/major_collection_basins.PNG"> Subcatchment'
+});
+lyr_SubBasins.set('fieldAliases', {
+    'area_ac': 'Area [ac]', 'dp_id' : 'ID', 'basin' : 'Watershed'
+});
+lyr_SubBasins.set('fieldImages', {
+    'area_ac': 'TextEdit', 'dp_id' : 'TextEdit','basin' : 'TextEdit'
+});
+lyr_SubBasins.set('fieldLabels', {
+    'area_ac': 'inline label', 'dp_id' : 'inline label', 'basin' : 'inline label'
+});
+lyr_SubBasins.on('precompose', function(evt) {
+    evt.context.globalCompositeOperation = 'normal';
+});
+
+
+//////////////////////////////////////////////
 // Major Collection Basins
 /////////////////////////////////////////////
 var jsonSource_MajorOutfallBasins_0 = new ol.source.Vector({
@@ -995,6 +1028,7 @@ lyr_irr_manhole.setVisible(false)
 lyr_sw_gravity_main.setVisible(false);
 lyr_GoogleHybrid_1.setVisible(true);
 lyr_MajorWatersheds_0.setVisible(false);
+lyr_SubBasins.setVisible(false);
 lyr_mp_picture.setVisible(false);
 
 lyr_arvada_OutfallToCentroid.setVisible(false);
@@ -1055,6 +1089,7 @@ var layersList = [  lyr_GoogleTerrain_0, lyr_GoogleHybrid_1,
                     lyr_draft_Flow_Paths_0,lyr_arvada_OutfallToCentroid,
                     lyr_MajorOutfallBasins_0,
                     lyr_arvada_designPoint_0,
+                    lyr_SubBasins,
                     lyr_mp_comment,
                     lyr_mp_question,
                     lyr_mp_assumption ];

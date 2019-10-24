@@ -1,25 +1,25 @@
-/**
- *    Return OL style instance for major collection basins
+/** 
+ * Return OL style instance for subcatchments
  */
-function categories_MajorBasins(feature){
-    // define color, size, and style for basin
-    function colors(basin){
+function categories_SubBasins(feature){
+    // define color, size, and style for basin  
+    function colors(fill_color){
         var style = [new ol.style.Style({
             stroke: new ol.style.Stroke({
                 color: 'white',
-                lineDash: null,
+                lineDash: [7,10],
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                width: .75
+                width: 1.5
             }),
             fill: new ol.style.Fill({
-                color: basin,
+                color: fill_color,
             }),
         })];
         return style;
     }
-        
-    var trans = '0.5';
+
+    var trans = '0.30';
     var UDC = 'rgba(84,48,5,' + trans + ')'
     var BG = 'rgba(14,0,10,' + trans + ')'
     var LC = 'rgba(191,129,45,' + trans + ')'
@@ -32,9 +32,10 @@ function categories_MajorBasins(feature){
     var VBC = 'rgba(10,102,94,' + trans + ')'
     var CC = 'rgba(100,60,48,' + trans + ')'
 
-    if (feature.get("Basin") !== null ) {
-        var value = String(feature.get("Basin"));
+    if (feature.get("basin") !== null ) {
+        var value = String(feature.get("basin"));
     }
+
     switch (value.toString()) {
         case 'CC':
             return colors(CC);
@@ -62,10 +63,11 @@ function categories_MajorBasins(feature){
 
 }
 //define style layer to be used in layers.js
-var style_MajorOutfallBasins_0 = function(feature){
-        /*var context = {
-            feature: feature,
-        };*/
-        var style = categories_MajorBasins(feature);
-        return style;
-    };
+var style_MP_Sub_Basins = function(feature){
+	/*var context = {
+		feature: feature,
+	};*/
+	var style = categories_SubBasins(feature);
+	return style;
+};
+
