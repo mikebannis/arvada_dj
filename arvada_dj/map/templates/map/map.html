@@ -70,15 +70,15 @@
 {% endblock %}
 
 {% block content %}
-  <!-- <div>
-    <img class="arvada_logo"src="/static/webmap/styles/legend/arvada_logo.png">
-    <img class="respec_logo"src="/static/webmap/styles/legend/respec_logo.jpg">
-  </div>  -->
   <div id="map">
       <div id="popup" class="ol-popup">
           <a href="#" id="popup-closer" class="ol-popup-closer"></a>
           <div id="popup-content"></div>
       </div>
+  </div>
+  <div>
+    <img class="arvada_logo" src="{% static 'webmap/styles/legend/arvada_logo.png' %}?v{{ app_ver }}">
+    <img class="respec_logo" src="{% static 'webmap/styles/legend/respec_logo.png' %}?v{{ app_ver }}">
   </div>
   <script src="{% static 'webmap/resources/qgis2web_expressions.js' %}?v{{ app_ver }}"></script>
   <script src="{% static 'webmap/resources/polyfills.js' %}?v{{ app_ver }}"></script>
