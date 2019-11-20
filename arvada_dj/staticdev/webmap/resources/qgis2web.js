@@ -111,6 +111,69 @@ var openReplyForm = function(objectType, commentId) {
     popUp.firstChild.appendChild(replyCode);
 };
 
+/*
+ * Close comment item so it is no longer visible on map
+ */
+var closeCommItem = function(objectType, itemId) {
+    if(!confirm(`Close ${objectType}? It will no longer be visible on the map.`)) {
+        return;
+    }
+    alert('asdkfaj');
+    return;
+
+    // --------------------------------------------------------------------------------------
+    // Everything below here needs to be updated!!!!!
+    xhr = new XMLHttpRequest();
+    //xhr.open('POST', 'https://mikebannister.co/comments/');
+    xhr.open('POST', '/responses/');
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader("X-CSRFToken", `${csrfToken}`);
+    //xhr.setRequestHeader("csrfmiddlewaretoken", "${csrfToken}");
+
+    xhr.onload = function() {
+        if (xhr.status === 200 || xhr.status === 201) {
+            alert(`The ${objectType} has been closed.`);
+            // Update pop-up w/ new comment
+            return;
+            const responseDiv = document.getElementById('response-div');
+            if (responseDiv !== null) { 
+                responseDiv.parentNode.removeChild(responseDiv);
+            }
+            addResponses(objectType, commentId);
+            // Update layer so icon has correct color
+            switch(objectType) {
+                case 'comment':
+                    commentSource.clear();
+                    break;
+                case 'assumption':
+                    assumptionSource.clear();
+                    break;replyText
+                case 'question':
+                    questionSource.clear();
+                    sleep(3000).then(createQuestionPoints);
+            }
+        }
+        else {
+            alert('Request failed.  Returned status of ' + xhr.status + ' ' + xhr.statusText +
+                  '\n' + xhr.getAllResponseHeaders() + '\n' + xhr.responseText);
+            console.log(xhr.responseText);
+        }
+    };
+
+    var body = JSON.stringify({
+        "target_type": objectType,
+        "target_id": commentId,
+        "status": "closed"
+    });
+    xhr.send(body);
+
+    // Clean up
+    /*var replyCode = document.getElementById('reply-code');
+    replyCode.parentNode.removeChild(replyCode);
+    var replyButton = document.getElementById('reply-button');
+    replyButton.style.display = 'block';*/
+}
+
 /**
  * Return UTC date time string in local date/time
  */
@@ -252,7 +315,7 @@ var onSingleClick = function(evt) {
     var clusteredFeatures;
     var popupText = '<ul>';
     var commentFlag = false;
-    
+
     /*
      * Comments/questions/assumptions
      */
@@ -287,6 +350,7 @@ var onSingleClick = function(evt) {
                               </div>
                             </div>`;
                         break;
+
                     case 'assumption':
                         var id = feature.getId().split('.')[1];
                         var authorName = 'RESPEC';
@@ -303,6 +367,7 @@ var onSingleClick = function(evt) {
                               </div>
                             </div>`;
                         break;
+
                     case 'question':
                         var id = feature.getId().split('.')[1];
                         var authorName = 'RESPEC';
@@ -322,7 +387,10 @@ var onSingleClick = function(evt) {
                 }
                 // Get responses
                 addResponses(layerTitle, id);
-
+                if (userGroup=='RESPEC') {
+                popupText += `<button type="button" id="close-button" 
+                              onclick="closeCommItem('${layerTitle}', ${id})">Close ${layerTitle}</button>`
+                }
                 popupText += `<button type="button" id="reply-button" 
                               onclick="openReplyForm('${layerTitle}', ${id})">Reply</button>`
                 overlayPopup.setPosition(coord);
@@ -361,6 +429,11 @@ var onSingleClick = function(evt) {
             var clusterFeature;
             // check if features are clustered
             if (typeof clusteredFeatures !== "undefined") {
+                // Try to grab key order from layer, if not use order from GeoServer
+                currentFeatureKeys = layer.get('fieldKeys');
+                if (currentFeatureKeys === undefined) {
+                    currentFeatureKeys = currentFeature.getKeys();
+                };
                 if (doPopup) {
                     for(var n=0; n<clusteredFeatures.length; n++) {
                         clusterFeature = clusteredFeatures[n];
@@ -406,7 +479,11 @@ var onSingleClick = function(evt) {
                 }
 
             } else {  ///// This is the common case
-                currentFeatureKeys = currentFeature.getKeys();
+                // Try to grab key order from layer, if not use order from GeoServer
+                currentFeatureKeys = layer.get('fieldKeys');
+                if (currentFeatureKeys === undefined) {
+                    currentFeatureKeys = currentFeature.getKeys();
+                };
                 //console.log(currentFeatureKeys);
                 if (doPopup) {
                     popupText += '<li><table>';

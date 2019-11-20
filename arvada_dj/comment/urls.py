@@ -13,6 +13,10 @@ urlpatterns = [
     path('responses-by-object/<str:object_type>/<int:object_id>/',
          views.ResponsesByObject.as_view()),
 
+    # Close comm item
+    path('close-comm-item/<str:object_type>/<int:object_id>/',
+         views.close_comm_item),
+         #views.CloseCommItem.as_view()),
     path('users/', views.UserList.as_view()),
     path('users/<int:pk>/', views.UserDetail.as_view()),
 ]

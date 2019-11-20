@@ -66,4 +66,9 @@
 
 #reply-button {
     float: right;
+    margin-top: 5px;
+}
+
+#close-button {
+    margin-top: 5px;
 }
