@@ -361,6 +361,11 @@ var onSingleClick = function(evt) {
             var clusterFeature;
             // check if features are clustered
             if (typeof clusteredFeatures !== "undefined") {
+                // Try to grab key order from layer, if not use order from GeoServer
+                currentFeatureKeys = layer.get('fieldKeys');
+                if (currentFeatureKeys === undefined) {
+                    currentFeatureKeys = currentFeature.getKeys();
+                };
                 if (doPopup) {
                     for(var n=0; n<clusteredFeatures.length; n++) {
                         clusterFeature = clusteredFeatures[n];
@@ -406,7 +411,11 @@ var onSingleClick = function(evt) {
                 }
 
             } else {  ///// This is the common case
-                currentFeatureKeys = currentFeature.getKeys();
+                // Try to grab key order from layer, if not use order from GeoServer
+                currentFeatureKeys = layer.get('fieldKeys');
+                if (currentFeatureKeys === undefined) {
+                    currentFeatureKeys = currentFeature.getKeys();
+                };
                 //console.log(currentFeatureKeys);
                 if (doPopup) {
                     popupText += '<li><table>';
