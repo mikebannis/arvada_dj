@@ -118,6 +118,7 @@
   <script src="{% static 'webmap/resources/comments.js' %}?v{{ app_ver }}"></script>
   <script>
     var csrfToken = "{{csrf_token}}";
+    var userGroup = "{{user.groups.all.0.name}}";
 
     // ------------------- Fix height of map 
     var setMapHeight = function () {

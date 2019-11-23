@@ -3,6 +3,19 @@ from rest_framework import serializers
 from comment.models import Comment, Response, Assumption, Question
 
 
+class CloseCommItemSerializer(serializers.Serializer):
+    """ Update status for comments, assumptions, and questions """
+    object_type = serializers.ChoiceField(choices=['comment', 'question',
+                                                   'assumption'])
+    object_id = serializers.IntegerField()
+    status = serializers.CharField(max_length=254)
+
+    def update(self, instance, validated_data):
+        instance.status = validated_data.get('status', instance.status)
+        instance.save()
+        return instance
+
+
 class ResponseSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
     author_name = serializers.ReadOnlyField()
@@ -29,8 +42,9 @@ class ResponsePostSerializer(serializers.Serializer):
         elif validated_data['target_type'] == 'question':
             target = Question.objects.get(id=validated_data['target_id'])
         else:
-            raise NotImplemented('Target type: ' + validated_data['target_type'] +
-                                 ' is not supported.')
+            raise NotImplementedError('Target type: ' +
+                                      validated_data['target_type'] +
+                                      ' is not supported.')
 
         validated_data['target_object'] = target
         del validated_data['target_id']
