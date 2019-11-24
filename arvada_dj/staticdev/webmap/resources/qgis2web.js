@@ -111,6 +111,50 @@ var openReplyForm = function(objectType, commentId) {
     popUp.firstChild.appendChild(replyCode);
 };
 
+/*
+ * Close comment item so it is no longer visible on map
+ */
+var closeCommItem = function(objectType, itemId) {
+    if(!confirm(`Close ${objectType}? It will no longer be visible on the map.`)) {
+        return;
+    }
+
+    // --------------------------------------------------------------------------------------
+    // Everything below here needs to be updated!!!!!
+    xhr = new XMLHttpRequest();
+    //xhr.open('POST', 'https://mikebannister.co/comments/');
+    xhr.open('GET', `/close-comm-item/${objectType}/${itemId}/`);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader("X-CSRFToken", `${csrfToken}`);
+    //xhr.setRequestHeader("csrfmiddlewaretoken", "${csrfToken}");
+
+    xhr.onload = function() {
+        if (xhr.status === 200 || xhr.status === 201) {
+            // Update layer to hide closed item
+            switch(objectType) {
+                case 'comment':
+                    commentSource.clear();
+                    break;
+                case 'assumption':
+                    assumptionSource.clear();
+                    break;replyText
+                case 'question':
+                    questionSource.clear();
+                    sleep(3000).then(createQuestionPoints);
+            }
+        }
+        else {
+            alert('Request failed.  Returned status of ' + xhr.status + ' ' + xhr.statusText +
+                  '\n' + xhr.getAllResponseHeaders() + '\n' + xhr.responseText);
+            console.log(xhr.responseText);
+        }
+    };
+    xhr.send();
+
+    // Clean up
+    ol_popup_container.style.display = 'none';
+}
+
 /**
  * Return UTC date time string in local date/time
  */
@@ -252,7 +296,7 @@ var onSingleClick = function(evt) {
     var clusteredFeatures;
     var popupText = '<ul>';
     var commentFlag = false;
-    
+
     /*
      * Comments/questions/assumptions
      */
@@ -287,6 +331,7 @@ var onSingleClick = function(evt) {
                               </div>
                             </div>`;
                         break;
+
                     case 'assumption':
                         var id = feature.getId().split('.')[1];
                         var authorName = 'RESPEC';
@@ -303,6 +348,7 @@ var onSingleClick = function(evt) {
                               </div>
                             </div>`;
                         break;
+
                     case 'question':
                         var id = feature.getId().split('.')[1];
                         var authorName = 'RESPEC';
@@ -322,7 +368,10 @@ var onSingleClick = function(evt) {
                 }
                 // Get responses
                 addResponses(layerTitle, id);
-
+                if (userGroup=='RESPEC') {
+                popupText += `<button type="button" id="close-button" 
+                              onclick="closeCommItem('${layerTitle}', ${id})">Close ${layerTitle}</button>`
+                }
                 popupText += `<button type="button" id="reply-button" 
                               onclick="openReplyForm('${layerTitle}', ${id})">Reply</button>`
                 overlayPopup.setPosition(coord);
