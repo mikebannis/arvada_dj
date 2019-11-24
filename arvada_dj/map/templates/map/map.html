@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="{% static 'webmap/resources/qgis2web.css' %}?v{{ app_ver }}">
   <link rel="stylesheet" href="{% static 'webmap/resources/comments.css' %}?v{{ app_ver }}">
   <link rel="stylesheet" href="{% static 'webmap/resources/logos.css' %}?v{{ app_ver }}"> 
+
   <style>
       .search-layer {
         top: 65px;
@@ -45,15 +46,8 @@
           color: black !important;
       }
   </style>
+
   <style>
-/*      html, body, #map {
-          width: 100%;
-          height: 100%;
-          padding: 0;
-          margin: 0;
-          text-align: left;
-          background: white;
-      }*/
       .locate {
           top: 6em;
           left: .5em;
@@ -70,6 +64,13 @@
 {% endblock %}
 
 {% block content %}
+  <script>
+    var csrfToken = "{{csrf_token}}";
+    var userGroup = "{{user.groups.all.0.name}}";
+    // Show closed comments, etc. in super map
+    var superMap = {{super_map}};
+  </script>
+
   <div id="map">
       <div id="popup" class="ol-popup">
           <a href="#" id="popup-closer" class="ol-popup-closer"></a>
@@ -80,6 +81,7 @@
     <img class="arvada_logo" src="{% static 'webmap/styles/legend/arvada_logo.png' %}?v{{ app_ver }}">
     <img class="respec_logo" src="{% static 'webmap/styles/legend/respec_logo.png' %}?v{{ app_ver }}">
   </div>
+
   <script src="{% static 'webmap/resources/qgis2web_expressions.js' %}?v{{ app_ver }}"></script>
   <script src="{% static 'webmap/resources/polyfills.js' %}?v{{ app_ver }}"></script>
   <script src="{% static 'webmap/resources/functions.js' %}?v{{ app_ver }}"></script>
@@ -110,16 +112,13 @@
   <script src="{% static 'webmap/styles/irr_manhole_style.js' %}?v{{ app_ver }}"></script>
   <script src="{% static 'webmap/styles/irr_ditch.js' %}?v{{ app_ver }}"></script>
   
-  <script src="{% static 'webmap/layers/layers.js' %}?v{{ app_ver }}" type="text/javascript"></script> 
+  <script src="{% static 'webmap/layers/layers.js' %}?v{{ app_ver }}"></script> 
   <script src="{% static 'webmap/resources/qgis2web.js' %}?v{{ app_ver }}"></script>
   <script src="{% static 'webmap/resources/geolocate.js' %}?v{{ app_ver }}"></script>
   <script src="{% static 'webmap/resources/Autolinker.min.js' %}?v{{ app_ver }}"></script>
 
   <script src="{% static 'webmap/resources/comments.js' %}?v{{ app_ver }}"></script>
   <script>
-    var csrfToken = "{{csrf_token}}";
-    var userGroup = "{{user.groups.all.0.name}}";
-
     // ------------------- Fix height of map 
     var setMapHeight = function () {
         var viewHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
@@ -138,6 +137,14 @@
       var myInnerLayerSwitcher = document.getElementsByClassName('panel')[0];
       myLayerSwitcher.style.height = myInnerLayerSwitcher.getBoundingClientRect().height + "px";
     }
-  
+
+    //----------------- Add link to super map for RESPEC users
+    if (userGroup == "RESPEC") {
+      let mapNavButton = document.getElementById('mapNavButton');
+      let superMapButton = document.createElement('a');
+      superMapButton.appendChild(document.createTextNode('Super-Map'));
+      superMapButton.href = "{% url 'map:super_map'%}";
+      mapNavButton.parentNode.insertBefore(superMapButton, mapNavButton.nextSibling);
+    }
   </script>
 {% endblock %}

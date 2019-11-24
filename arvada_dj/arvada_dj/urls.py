@@ -25,7 +25,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 urlpatterns = [
 
     path('main/', include('main.urls')),
-    path('map/', include('map.urls')),
+    path('map/', include(('map.urls', 'map'), namespace='map')),
     path('', main.views.index),
     path('arvada_admin/', admin.site.urls),
     path('accounts/', include('django.contrib.auth.urls')),

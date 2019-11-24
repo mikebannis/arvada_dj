@@ -23,8 +23,8 @@ var lyr_mp_question = new ol.layer.Vector({
     style: function (feature, resolution) {
         var _status = feature.get('status');
         var numResponses = feature.get('num_responses');
-        if (_status == 'closed' ) { 
-            // Closed, don't display
+        if (_status == 'closed' && !superMap) { 
+            // Don't display if closed, always disply if super_map
             return;
         } else if (numResponses == 0 || _status == 'help') {
             // no responses, or needs more info, bright white icon    
@@ -101,8 +101,8 @@ var lyr_mp_assumption = new ol.layer.Vector({
     style: function (feature, resolution) {
         var _status = feature.get('status');
         var numResponses = feature.get('num_responses');
-        if (_status == 'closed' ) { 
-            // Closed, don't display
+        if (_status == 'closed' && !superMap) { 
+            // Don't display if closed, always disply if super_map
             return;
         } else if (numResponses == 0 || _status == 'help') {
             // Needs attention, use bright icon 
@@ -156,8 +156,8 @@ var lyr_mp_comment = new ol.layer.Vector({
     style: function (feature, resolution) {
         var _status = feature.get('status');
         var numResponses = feature.get('num_responses');
-        if (_status == 'closed' ) { 
-            // Closed, don't display
+        if (_status == 'closed' && !superMap) { 
+            // Don't display if closed, always disply if super_map
             return;
         } else if (numResponses == 0 || _status == 'help') {
             //#console.log(feature.get('comment_text') + ' WHITE'+numResponses);
