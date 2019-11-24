@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponse
+from django.shortcuts import get_object_or_404
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -9,10 +10,19 @@ from rest_framework.permissions import IsAuthenticated
 
 from comment.models import Comment, Response, Assumption, Question
 from comment.serializers import CommentSerializer, UserSerializer
-from comment.serializers import ResponseSerializer, ResponsePostSerializer, CloseCommItemSerializer
+from comment.serializers import ResponseSerializer, ResponsePostSerializer
 from comment.permissions import IsOwnerOrReadOnly
 
 from datetime import datetime as dt
+
+
+def user_is_RESPEC(user):
+    """ Returns true if logged in user is in the RESPEC group """
+    # Update the below code to search all groups
+    try:
+        return user.groups.all()[0].name == 'RESPEC'
+    except IndexError:
+        return False
 
 
 class ResponseList(APIView):
@@ -45,41 +55,21 @@ class ResponseDetail(generics.RetrieveUpdateDestroyAPIView):
         serializer.save(owner=self.request.user)
 
 
+@user_passes_test(user_is_RESPEC)
 @login_required
 def close_comm_item(request, object_type=None, object_id=None):
     if object_type == 'comment':
-        target = Comment.objects.get(id=object_id)
+        target = get_object_or_404(Comment, id=object_id)
     elif object_type == 'assumption':
-        target = Assumption.objects.get(id=object_id)
+        target = get_object_or_404(Assumption, id=object_id)
     elif object_type == 'question':
-        target = Question.objects.get(id=object_id)
+        target = get_object_or_404(Question, id=object_id)
     else:
         raise NotImplementedError('Object type: ' + object_type +
-                                    ' is not supported.')
+                                  ' is not supported.')
     target.status = 'closed'
     target.save()
     return HttpResponse(f'Success! {object_type}-{object_id}')
-
-
-class CloseCommItem(generics.RetrieveUpdateDestroyAPIView):
-    """ Update status of communication item """
-    # TODO: Verify user is member of RESPEC group
-    serializer_class = CloseCommItemSerializer
-
-    def get_queryset(self):
-        object_type = self.serializer_class.object_type
-        object_id = self.serializer_class.object_id
-
-        if object_type == 'comment':
-            target = Comment.objects.get(id=object_id)
-        elif object_type == 'assumption':
-            target = Assumption.objects.get(id=object_id)
-        elif object_type == 'question':
-            target = Question.objects.get(id=object_id)
-        else:
-            raise NotImplementedError('Object type: ' + object_type +
-                                      ' is not supported.')
-        return target
 
 
 class ResponsesByObject(generics.ListAPIView):

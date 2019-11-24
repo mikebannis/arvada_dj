@@ -3,18 +3,18 @@ from rest_framework import serializers
 from comment.models import Comment, Response, Assumption, Question
 
 
-class CloseCommItemSerializer(serializers.Serializer):
-    """ Update status for comments, assumptions, and questions """
-    object_type = serializers.ChoiceField(choices=['comment', 'question',
-                                                   'assumption'])
-    object_id = serializers.IntegerField()
-    status = serializers.CharField(max_length=254)
-
-    def update(self, instance, validated_data):
-        instance.status = validated_data.get('status', instance.status)
-        instance.save()
-        return instance
-
+# class CloseCommItemSerializer(serializers.Serializer):
+#     """ Update status for comments, assumptions, and questions """
+#     object_type = serializers.ChoiceField(choices=['comment', 'question',
+#                                                    'assumption'])
+#     object_id = serializers.IntegerField()
+#     status = serializers.CharField(max_length=254)
+#
+#     def update(self, instance, validated_data):
+#         instance.status = validated_data.get('status', instance.status)
+#         instance.save()
+#         return instance
+#
 
 class ResponseSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')

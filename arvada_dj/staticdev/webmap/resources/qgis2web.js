@@ -118,29 +118,19 @@ var closeCommItem = function(objectType, itemId) {
     if(!confirm(`Close ${objectType}? It will no longer be visible on the map.`)) {
         return;
     }
-    alert('asdkfaj');
-    return;
 
     // --------------------------------------------------------------------------------------
     // Everything below here needs to be updated!!!!!
     xhr = new XMLHttpRequest();
     //xhr.open('POST', 'https://mikebannister.co/comments/');
-    xhr.open('POST', '/responses/');
+    xhr.open('GET', `/close-comm-item/${objectType}/${itemId}/`);
     xhr.setRequestHeader('Content-Type', 'application/json');
     xhr.setRequestHeader("X-CSRFToken", `${csrfToken}`);
     //xhr.setRequestHeader("csrfmiddlewaretoken", "${csrfToken}");
 
     xhr.onload = function() {
         if (xhr.status === 200 || xhr.status === 201) {
-            alert(`The ${objectType} has been closed.`);
-            // Update pop-up w/ new comment
-            return;
-            const responseDiv = document.getElementById('response-div');
-            if (responseDiv !== null) { 
-                responseDiv.parentNode.removeChild(responseDiv);
-            }
-            addResponses(objectType, commentId);
-            // Update layer so icon has correct color
+            // Update layer to hide closed item
             switch(objectType) {
                 case 'comment':
                     commentSource.clear();
@@ -159,19 +149,10 @@ var closeCommItem = function(objectType, itemId) {
             console.log(xhr.responseText);
         }
     };
-
-    var body = JSON.stringify({
-        "target_type": objectType,
-        "target_id": commentId,
-        "status": "closed"
-    });
-    xhr.send(body);
+    xhr.send();
 
     // Clean up
-    /*var replyCode = document.getElementById('reply-code');
-    replyCode.parentNode.removeChild(replyCode);
-    var replyButton = document.getElementById('reply-button');
-    replyButton.style.display = 'block';*/
+    ol_popup_container.style.display = 'none';
 }
 
 /**
