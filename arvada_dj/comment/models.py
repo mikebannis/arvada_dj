@@ -3,7 +3,7 @@ from datetime import datetime as dt
 from django.contrib.contenttypes.fields import GenericForeignKey
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericRelation
-from django.db.models.signals import post_save, pre_delete, post_delete
+from django.db.models.signals import post_save, post_delete
 
 
 def update_response_counts(sender, instance, **kwargs):
@@ -37,17 +37,13 @@ class Response(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        #if isinstance(self.target_object, Comment):
-            #temp = self.target_object.comment_text
-        #else:
-            #temp = self.target_object.text
         return '(' + str(self.content_type) + ') ' + self.author_name + '-' + \
                self.text
 
 
 post_save.connect(update_response_counts, sender=Response)
 # post_delete caused issues when deleting target objects
-#pre_delete.connect(update_response_counts, sender=Response)
+# pre_delete.connect(update_response_counts, sender=Response)
 post_delete.connect(update_response_counts, sender=Response)
 
 
@@ -71,7 +67,8 @@ class Comment(models.Model):
         super(Comment, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.owner.username + '-' + self.comment_text + '-' + self.status
+        return str(self.id) + ' ' + self.owner.username + '-' + \
+               self.comment_text + '-' + self.status
 
 
 class Assumption(models.Model):
@@ -97,5 +94,3 @@ class Question(models.Model):
     def __str__(self):
         return str(self.id) + '-' + self.text + '-' + str(self.status) + \
             '/' + str(self.num_responses)
-
-

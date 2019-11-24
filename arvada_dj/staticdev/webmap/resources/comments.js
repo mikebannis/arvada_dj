@@ -120,34 +120,6 @@ var saveComment = function() {
     doComment = false;
     map.removeInteraction(modify);
     document.getElementById("map").style.cursor = "default";
-
-    /*jvar commentFeat = new ol.Feature({
-        geometry: tempCommentGeo,
-        username: document.getElementById('cmt-user-name').value,
-        comment: document.getElementById('cmt-txt-area').value,
-        timestamp: Date().toString(),
-        fid: maxCommentId() + 1, 
-    });*/
-
-    //commentSource.addFeature(commentFeat);
-}
-
-var OLDsaveComment = function() {
-    //var now = new Date();
-    var commentFeat = new ol.Feature({
-        geometry: tempCommentGeo,
-        username: document.getElementById('cmt-user-name').value,
-        comment: document.getElementById('cmt-txt-area').value,
-        timestamp: Date().toString(),
-        fid: maxCommentId() + 1, 
-    });
-
-    commentSource.addFeature(commentFeat);
-    ol_popup_container.style.display = 'none';
-
-    doComment = false;
-    map.removeInteraction(modify);
-    document.getElementById("map").style.cursor = "default";
 }
 
 var cancelComment = function() {
