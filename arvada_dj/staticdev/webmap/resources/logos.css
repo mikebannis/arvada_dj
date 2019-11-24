@@ -3,10 +3,12 @@
     position: absolute;
     left:15px;
     bottom:90px;
+    pointer-events: none;
 }
 .respec_logo{
 	width: 30px;
 	position: absolute;
 	left:95px;
 	bottom:15px;
+    pointer-events: none;
 }

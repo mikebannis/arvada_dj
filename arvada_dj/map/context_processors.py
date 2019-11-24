@@ -2,4 +2,4 @@
 
 
 def app_ver(request):
-    return {'app_ver': '1.5b'}
+    return {'app_ver': '1.5c'}
