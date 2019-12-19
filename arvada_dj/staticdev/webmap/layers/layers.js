@@ -1,5 +1,5 @@
 /*
-https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=arvada_swmp:mp_question&outputFormat=application/json&srsname=EPSG:3857
+https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&request=GetFeature&typeName=arvada_swmp:mp_question&outputFormat=application/json&srsname=EPSG:3857
 */
 var wms_layers = [];
 
@@ -10,7 +10,7 @@ var questionSource = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:mp_question&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -88,7 +88,7 @@ var assumptionSource = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:mp_assumption&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -142,7 +142,7 @@ var commentSource = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              //'request=GetFeature&typeName=arvada_swmp:mp_comment&outputFormat=' +
              'request=GetFeature&typeName=arvada_swmp:comment_comment&outputFormat=' +
              'application/json&srsname=EPSG:3857'
@@ -196,7 +196,7 @@ var jsonSource_ArvadaBoundary_0 = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:arvada_drcog_boundary&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -235,7 +235,7 @@ var jsonSource_irr_gravity_main = new ol.source.Vector({
     attributions: '<a href="">City of Arvada</a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:irr_gravity_main&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -289,7 +289,7 @@ var jsonSource_irr_ditch = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:irr_ditch&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -330,7 +330,7 @@ var jsonSource_sw_detention = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:sw_detention&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -382,7 +382,7 @@ var jsonSource_sw_manhole = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:sw_manhole&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -422,7 +422,7 @@ var jsonSource_sw_culvert = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:sw_culvert&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -472,7 +472,7 @@ var jsonSource_sw_gravity_main = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:sw_gravity_main&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -521,7 +521,7 @@ var jsonSource_sw_storm_ditch = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:sw_storm_ditch&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -569,7 +569,7 @@ var jsonSource_MP_Sub_Basins= new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:mp_sub_basins&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -692,7 +692,7 @@ var jsonSource_MajorOutfallBasins_0 = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:mp_watersheds&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -725,7 +725,7 @@ var jsonSource_MP_Sub_Basins_0= new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:mp_sub_basins&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -759,7 +759,7 @@ var jsonSource_arvada_OutfallToCentroid = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:mp_mcb_loading&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -781,7 +781,7 @@ var jsonSource_MajorWatersheds_0 = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:major_watersheds&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -814,7 +814,7 @@ var jsonSource_arvada_swmpcreeks_4 = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:creeks&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -847,7 +847,7 @@ var jsonSource_sw_inlet = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:sw_inlet&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -888,7 +888,7 @@ var jsonSource_arvada_designPoint_0 = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:dp_locations&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -922,7 +922,7 @@ var jsonSource_mp_picture = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:mp_picture&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -968,7 +968,7 @@ var jsonSource_irr_manhole = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:irr_manhole&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -1002,7 +1002,7 @@ var jsonSource_sw_outfall = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:sw_outfall&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -1036,7 +1036,7 @@ var jsonSource_sw_pipe_out = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:sw_pipe_out&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },
@@ -1072,7 +1072,7 @@ var jsonSource_draft_Flow_Paths_0 = new ol.source.Vector({
     attributions: '<a href=""></a>',
     format: new ol.format.GeoJSON(),
     url: function(extent) {
-        return 'https://riverproject.co:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
+        return 'https://respec.dev:8443/geoserver/arvada_swmp/wfs?service=WFS&version=1.1.0&' +
              'request=GetFeature&typeName=arvada_swmp:draft_Flow_Paths&outputFormat=' +
              'application/json&srsname=EPSG:3857'
         },

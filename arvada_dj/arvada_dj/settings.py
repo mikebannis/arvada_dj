@@ -37,7 +37,8 @@ SECRET_KEY = get_secret('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['respec.dev', 'www.respec.dev', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['respec.dev', 'www.respec.dev', '127.0.0.1', 'localhost', 
+                 '157.245.231.3']
 
 APPEND_SLASH = True
 

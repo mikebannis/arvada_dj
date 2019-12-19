@@ -142,7 +142,7 @@
     if (userGroup == "RESPEC") {
       let mapNavButton = document.getElementById('mapNavButton');
       let superMapButton = document.createElement('a');
-      superMapButton.appendChild(document.createTextNode('Super-Map'));
+      superMapButton.appendChild(document.createTextNode('Super-Map!!'));
       superMapButton.href = "{% url 'map:super_map'%}";
       mapNavButton.parentNode.insertBefore(superMapButton, mapNavButton.nextSibling);
     }
